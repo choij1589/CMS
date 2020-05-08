@@ -304,7 +304,6 @@ void SetHist(Hist* H, TLegend* leg) {
 
 void SetHist(vector<Hist*> Hs, TLegend* leg) {
   Double_t scale = GetScale(Hs.at(0)->wp, Hs.at(0)->syst);
-  //cout << Hs.size() << endl;
   for (int i = 0; i < Hs.size(); i++) {
 	Hs.at(i)->hist->Scale(scale);
 	Hs.at(i)->hist->SetStats(0);
@@ -402,7 +401,6 @@ void SetStack(THStack* stack, TString histname) {
 void SetCompare(TH1D* compare) {
   compare->SetStats(0);
   compare->SetTitle("");
-  cout << xAxisName << endl;
   compare->GetXaxis()->SetTitle(xAxisName);
   compare->GetXaxis()->SetTitleSize(0.08);
   compare->GetXaxis()->SetTitleOffset(1);

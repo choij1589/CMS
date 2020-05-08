@@ -25,15 +25,15 @@ TCanvas* DrawFake1DPlot(int syst);
 //========= Main Function ===============
 //=======================================
 void DrawFake1D() {
-  int i = 3;
-  TCanvas* c = DrawFake1DPlot(Systs.at(i));
-  c->SaveAs("FR_" + Systs.at(i) + ".pdf");
+  int i = 1;
+  //TCanvas* c = DrawFake1DPlot(Systs.at(i));
+  //c->SaveAs("FR_" + Systs.at(i) + ".pdf");
 
-  //TCanvas* c = DrawFake1DPlot(i);
-  //if (i == 0) c->SaveAs("FR_Norm.pdf");
-  //else if (i == -1) c->SaveAs("FR_Norm_Down.pdf");
-  //else if (i == 1) c->SaveAs("FR_Norm_Up.pdf");
-  //else exit(EXIT_FAILURE);
+  TCanvas* c = DrawFake1DPlot(i);
+  if (i == 0) c->SaveAs("FR_Norm.pdf");
+  else if (i == -1) c->SaveAs("FR_Norm_Down.pdf");
+  else if (i == 1) c->SaveAs("FR_Norm_Up.pdf");
+  else exit(EXIT_FAILURE);
 
   c->Clear(); c->Close();
 }
@@ -164,9 +164,18 @@ TH1D* MakeFake1D(int syst) {
   Double_t scale_loose = GetScale("Loose", "Central");
   TH1D* h_data_loose_px = h_data_loose->ProjectionX("px_data");
   TH1D* h_mc_loose_px = h_mc_loose->ProjectionX("px_mc");
-  if (syst == 0) h_data_loose_px->Add(h_mc_loose_px, scale_loose * -1);
-  else if (syst == -1) h_data_loose_px->Add(h_mc_loose_px, scale_loose * -0.85);
-  else if (syst == 1) h_data_loose_px->Add(h_mc_loose_px, scale_loose * 1.15);
+  if (syst == 0) {
+	scale_loose *= 1;
+	h_data_loose_px->Add(h_mc_loose_px, -1 * scale_loose);
+  }
+  else if (syst == -1) {
+	scale_loose *= 0.85;
+	h_data_loose_px->Add(h_mc_loose_px, -1 * scale_loose);
+  }
+  else if (syst == 1) {
+	scale_loose *= 1.15;
+	h_data_loose_px->Add(h_mc_loose_px, -1 * scale_loose);
+  }
   else {
 	cout << "[MakeFake1D] syst should be 0, -1, 1" << endl;
 	exit(EXIT_FAILURE);
@@ -177,9 +186,18 @@ TH1D* MakeFake1D(int syst) {
   Double_t scale_tight = GetScale("Tight", "Central");
   TH1D* h_data_tight_px = h_data_tight->ProjectionX("px_data_tight");
   TH1D* h_mc_tight_px = h_mc_tight->ProjectionX("px_mc_tight");
-  if (syst == 0) h_data_tight_px->Add(h_mc_tight_px, -1);
-  else if (syst == -1) h_data_tight_px->Add(h_mc_tight_px, -0.85);
-  else if (syst == 1) h_data_tight_px->Add(h_mc_tight_px, 1.15);
+  if (syst == 0) {
+	scale_tight *= 1;
+	h_data_tight_px->Add(h_mc_tight_px, -1 * scale_tight);
+  }
+  else if (syst == -1) {
+	scale_tight *= 0.85;
+	h_data_tight_px->Add(h_mc_tight_px, -1 * scale_tight);
+  }
+  else if (syst == 1) {
+	scale_tight *= 1.15;
+	h_data_tight_px->Add(h_mc_tight_px, -1 * scale_tight);
+  }
   else {
 	cout << "[MakeFake1D] syst should be 0, -1, 1" << endl;
 	exit(EXIT_FAILURE);

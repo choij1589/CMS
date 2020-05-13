@@ -6,6 +6,7 @@ Systs = ("BtagDep", "JetPtCut30", "JetPtCut35", "JetPtCut40", "JetPtCut45", "Jet
 
 path_data = "/home/choij/Documents/CMS/FakeEstimator/MakeNPV/output/2016/DATA/MakeNPV_DoubleEG_2016.root"
 path_mc = "/home/choij/Documents/CMS/FakeEstimator/MakeNPV/output/2016/MakeNPV_WJets_MG.root"
+path_output = "/home/choij/Documents/CMS/FakeEstimator/MakeNPV/nPV_reweight.root"
 
 def GetDirectory(id, isData):
 	id = id + "ID_Central"
@@ -19,7 +20,7 @@ def GetDirectory(id, isData):
 f_data = TFile(path_data, "read")
 f_mc = TFile(path_mc, "read")
 
-f_out = TFile("nPV_reweight.root", "recreate")
+f_out = TFile(path_output, "recreate")
 f_out.cd()
 
 for id in IDs:

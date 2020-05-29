@@ -1,66 +1,10 @@
+#include "FileNavi.h"
 #include <iostream>
 #include <vector>
 #include <map>
 using namespace std;
 
-class FileNavi {
-
-private:
-    TString pathData, pathMC;
-
-    //==== information for fake rate measurement with systematics
-    vector<TString> IDs;
-    vector<TString> Systs;
-    vector<TString> Prompts;
-    vector<TString> Regions;
-    vector<TString> Samples;
-
-    //==== map for tree structure
-    //==== MapFakeDirectory[sample][id][syst][prompt][region]
-    map<TString,
-        map<TString,
-            map<TString,
-                map<TString,
-                    map<TString, TDirectory*>>>>> MapFakeDirectory;
-
-
-public:
-    //==== you can make different constructor for each analysis
-    //==== constructor and destructor for the fake rate measurement
-    FileNavi(const TString &path_data, const TString &path_mc)
-			:pathData(path_data), pathMC(path_mc)
-	{
-        cout << "FileNavi Constructor called" << endl;
-    }
-    ~FileNavi(){
-        cout << "Destructor called" << endl;
-    }
-	//==== Set Functions ====
-	void SetPathData(const TString &path);
-	void SetPathMC(const TString &path);
-	void SetSamples(const vector<TString> &samples);
-	void SetIDs(const vector<TString> &ids);
-	void SetSysts(const vector<TString> &systs);
-	void SetPrompts(const vector<TString> &prompts);
-	void SetRegions(const vector<TString> &regions);
-	
-	//==== Get Functions ====
-	TString GetPathData() const;
-	TString GetPathMC() const;
-	vector<TString> GetSamples() const;
-	vector<TString> GetIDs() const;
-	vector<TString> GetSysts() const;
-	vector<TString> GetPrompts() const;
-	vector<TString> GetRegions() const;
-
-	//==== Load Directoreis ====
-	void LoadFakeDirectory();
-	TDirectory* GetFakeDirectory(
-		TString sample, TString id, TString syst, TString prompt, TString region);
-	TH1* GetHistFromFakeDirectory(TDirectory* dir, TString histname);
-};
-
-//==== set functions ====
+//==== Set Functions ====
 void FileNavi::SetPathData(const TString &path) {
 	pathData = path;
 	cout << "[FileNavi::SetPathData] pathData = " << pathData << endl;
@@ -109,7 +53,7 @@ void FileNavi::SetRegions(const vector<TString> &regions) {
 	}
 	cout << "}" << endl;
 }
-//==== get functions ====
+//==== Get Functions ====
 TString FileNavi::GetPathData() const {
 	return pathData;
 }
@@ -132,7 +76,7 @@ vector<TString> FileNavi::GetRegions() const {
 	return Regions;
 }
 
-//==== other functions ====
+//==== Other Functions ====
 void FileNavi::LoadFakeDirectory() {
 	vector<TFile*> TFiles; // 0 for data, 1 for mc, 2~ for subsamples
     TFile* f_data = new TFile(pathData + "FakeEstimator_DoubleEG.root");

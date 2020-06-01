@@ -56,9 +56,7 @@ public:
 
     //==== Other Functions ====
     void LoadFakeDirectory();
-    TDirectory* GetFakeDirectory(
-        TString sample, TString id, TString syst, TString prompt, TString region);
-    TH1* GetHistFromFakeDirectory(TDirectory* dir, TString histname);
+    TDirectory* GetFakeDirectory(TString sample, TString id, TString syst, TString prompt, TString region);
 };
 
 #endif

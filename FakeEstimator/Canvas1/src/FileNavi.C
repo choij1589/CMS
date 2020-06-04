@@ -15,43 +15,43 @@ void FileNavi::SetPathMC(const TString &path) {
 }
 void FileNavi::SetSamples(const vector<TString> &samples) {
 	Samples = samples;
-	cout << "[FileNavi::SetSamples] Samples = {" << endl;
-	for (unsigned int i = 0; i < Samples.size(); i++) {
-		cout << Samples.at(i) << endl;
+	cout << "[FileNavi::SetSamples] Samples = {";
+	for (unsigned int i = 0; i < Samples.size()-1; i++) {
+		cout << Samples.at(i) << ", " ;
 	}
-	cout << "}" << endl;
+	cout << Samples.at(Samples.size()-1) << "}" << endl;
 }
 void FileNavi::SetIDs(const vector<TString> &ids) {
 	IDs = ids;
-	cout << "[FileNavi::SetIDs] IDs = {" << endl;
-	for (unsigned int i = 0; i < IDs.size(); i++) {
-		cout << IDs.at(i) << endl;
+	cout << "[FileNavi::SetIDs] IDs = {";
+	for (unsigned int i = 0; i < IDs.size()-1; i++) {
+		cout << IDs.at(i) << ", ";
 	}
-	cout << "}" << endl;
+	cout << IDs.at(IDs.size()-1) << "}" << endl;
 }
 void FileNavi::SetSysts(const vector<TString> &systs) {
 	Systs = systs;
-	cout << "[FileNavi::SetSysts] Systs = {" << endl;
-	for (unsigned int i = 0; i < Systs.size(); i++) {
-		cout << Systs.at(i) << endl;
+	cout << "[FileNavi::SetSysts] Systs = {";
+	for (unsigned int i = 0; i < Systs.size()-1; i++) {
+		cout << Systs.at(i) << ", ";
 	}
-	cout << "}" << endl;
+	cout << Systs.at(Systs.size()-1) << "}" << endl;
 }
 void FileNavi::SetPrompts(const vector<TString> &prompts) {
 	Prompts = prompts;
-	cout << "[FileNavi::SetPrompts] Prompts = {" << endl;
-	for (unsigned int i = 0; i < Prompts.size(); i++) {
-		cout << Prompts.at(i) << endl;
+	cout << "[FileNavi::SetPrompts] Prompts = {";
+	for (unsigned int i = 0; i < Prompts.size()-1; i++) {
+		cout << Prompts.at(i) << ", ";
 	}
-	cout << "}" << endl;
+	cout << Prompts.at(Prompts.size()-1) << "}" << endl;
 }
 void FileNavi::SetRegions(const vector<TString> &regions) {
 	Regions = regions;
-	cout << "[FileNavi::SetRegions] Regions = {" << endl;
-	for (unsigned int i = 0; i < Regions.size(); i++) {
-		cout << Regions.at(i) << endl;
+	cout << "[FileNavi::SetRegions] Regions = {";
+	for (unsigned int i = 0; i < Regions.size()-1; i++) {
+		cout << Regions.at(i) << ", ";
 	}
-	cout << "}" << endl;
+	cout << Regions.at(Regions.size()-1) << "}" << endl;
 }
 //==== Get Functions ====
 TString FileNavi::GetPathData() const {

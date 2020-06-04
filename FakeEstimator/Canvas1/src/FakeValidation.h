@@ -19,14 +19,21 @@ public:
 		const vector<TString> &prompts, const vector<TString> &regions,
 		const vector<TString> &idsets);
 
-    //==== Other Functions ====
+    //==== Member Functions ====
 	TH1* GetHist(TString sample, TString histname);
     TH2D* GetFakeRatePtEta(TString idset, TString syst, TString prompt, double promptScale);
 	vector<TH1D*> GetFakeRatePt(TString idset, TString syst, TString prompt, double promptScale);
 
+	TH2D* GetFakeCompPtEta(TString idset, TString syst, TString prompt, double promptScale);
+	vector<TH1D*> GetFakeCompPt(TString idset, TString syst, TString prompt, double promptScale);
+
 	TH2D* GetPromptNormPtEta(TString id, TString syst, TString prompt);
-	TH1D* GetPromptNormPt(TString id, TString syst, TString prompt);
-	TH1D* GetPromptNormEta(TString id, TString syst, TString prompt);
+	vector<TH1D*> GetPromptNormPt(TString id, TString syst, TString prompt);
+
+	TH2D* GetPromptCompPtEta(TString id, TString syst, TString prompt);
+	vector<TH1D*> GetPromptCompPt(TString id, TString syst, TString prompt);
+
+	TH2D* GetFakeRateWithError(TString idset); //need update
 };
 
 #endif

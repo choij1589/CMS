@@ -45,12 +45,12 @@ TH1* FakeValidation::GetHist(TString sample, TString histname) {
         if (histname.Contains(Regions.at(i))) region = Regions.at(i);
     }
 	//==== check the information ====
-	cout << "[FakeValidation::GetHist] histname = " << histname << endl;
-	cout << "[FakeValidation::GetHist] sample = " << sample << endl;
-	cout << "[FakeValidation::GetHist] id = " << id << endl;
-	cout << "[FakeValidation::GetHist] syst = " << syst << endl;
-	cout << "[FakeValidation::GetHist] prompt = " << prompt << endl;
-	cout << "[FakeValidation::GetHist] region = " << region << endl;
+	//cout << "[FakeValidation::GetHist] histname = " << histname << endl;
+	//cout << "[FakeValidation::GetHist] sample = " << sample << endl;
+	//cout << "[FakeValidation::GetHist] id = " << id << endl;
+	//cout << "[FakeValidation::GetHist] syst = " << syst << endl;
+	//cout << "[FakeValidation::GetHist] prompt = " << prompt << endl;
+	//cout << "[FakeValidation::GetHist] region = " << region << endl;
 
 	//==== get directory from the information ====
 	TDirectory* dir = navi.GetFakeDirectory(sample, id, syst, prompt, region);
@@ -122,7 +122,7 @@ TH2D* FakeValidation::GetFakeRatePtEta(TString idset, TString syst, TString prom
     return hFakeRate;
 }
 
-vector<TH1D*> FakeValidation::GetFakeRatePt(TString idset, TString syst, TString prompt, Double_t promptScale) {
+vector<TH1D*> FakeValidation::GetFakeRatePt(TString idset, TString syst, TString prompt, Double_t promptScale){
 	//==== information setup ====
     vector<TString> Samples = navi.GetSamples();
     vector<TString> IDs = navi.GetIDs();
@@ -195,18 +195,45 @@ vector<TH1D*> FakeValidation::GetFakeRatePt(TString idset, TString syst, TString
 	return temp;
 }
 
-vector<TH1D*> FakeValidation::GetFakeCompPt(TString idset, TString syst, TString prompt, Double_t promptScale) {
-	vector<TH1D*> centrals = GetFakeRatePt(idset, "Central", prompt, promptScale);
-	vector<TH1D*> systs = GetFakeRatePt(idset, syst, prompt, promptScale);
+TH2D* FakeValidation::GetFakeCompPtEta(TString idset, TString syst, TString prompt, double promptScale) {
 
-	for (unsigned int i = 0; i < systs.size(); i++) {
-		//systs.at(i)->Add(centrals.at(i), -1);
-		//systs.at(i)->Divide(centrals.at(i));
+	cout << "[FakeValidation::GetFakeCompPtEta] Basic information" << endl;
+	cout << "[FakeValidation::GetFakeCompPtEta] idset = " << idset << endl;
+	cout << "[FakeValidation::GetFakeCompPtEta] syst = " << syst << endl;
+	cout << "[FakeValidation::GetFakeCompPtEta] prompt = " << prompt << endl;
+	cout << "[FakeValidation::GetFakeCompPtEta] promptScale = " << promptScale << endl;
 
+	TH2D* h_central = GetFakeRatePtEta(idset, "Central", prompt , 1.);
+	TH2D* h_syst = GetFakeRatePtEta(idset, syst, prompt, promptScale);
+	TH2D* h_comp = (TH2D*) h_syst->Clone("");
+	h_comp->Add(h_central, -1);
+	h_comp->Divide(h_central);
+
+	return h_comp;
+}
+
+
+vector<TH1D*> FakeValidation::GetFakeCompPt(TString idset, TString syst, TString prompt, double promptScale){
+
+	cout << "[FakeValidation::GetFakeCompPt] Basic information" << endl;
+	cout << "[FakeValidation::GetFakeCompPt] idset = " << idset << endl;
+	cout << "[FakeValidation::GetFakeCompPt] syst = " << syst << endl;
+	cout << "[FakeValidation::GetFakeCompPt] prompt = " << prompt << endl;
+	cout << "[FakeValidation::GetFakeCompPt] promptScale = " << promptScale << endl;
+
+	vector<TH1D*> h_central = GetFakeRatePt(idset, "Central", prompt, 1.);
+	vector<TH1D*> h_syst = GetFakeRatePt(idset, syst, prompt, promptScale);
+	
+	vector<TH1D*> h_comp = h_syst;
+	for (unsigned int i = 0; i < h_comp.size(); i++) {
+		h_comp.at(i)->Add(h_central.at(i), -1);
+		h_comp.at(i)->Divide(h_central.at(i));
 	}
 
-	return systs;
+	return h_comp;
 }
+
+
 
 TH2D* FakeValidation::GetPromptNormPtEta(TString id, TString syst, TString prompt) {
 	//==== Check information ====
@@ -222,40 +249,57 @@ TH2D* FakeValidation::GetPromptNormPtEta(TString id, TString syst, TString promp
 	return h;
 }
 
-TH1D* FakeValidation::GetPromptNormPt(TString id, TString syst, TString prompt) {
+vector<TH1D*> FakeValidation::GetPromptNormPt(TString id, TString syst, TString prompt) {
 	TString data = "DoubleEG";
 	TString mc = "MC";
 
 	TH2D* h_data = (TH2D*) GetHist(data, "passID_WEnriched_" + id + "_" + syst + "_" + prompt);
 	TH2D* h_mc = (TH2D*) GetHist(mc, "passID_WEnriched_" + id + "_" + syst + "_" + prompt);
 
-	TH1D* h_data_pt = h_data->ProjectionX("_px_data");
-	TH1D* h_mc_pt = h_mc->ProjectionX("_px_mc");
+	TH1D* h_total = h_data->ProjectionX("_px_" + syst + "_" + prompt); h_total->Divide(h_mc->ProjectionX("_px_mc_" + syst + "_" + prompt));
+	TH1D* h_bin1 = h_data->ProjectionX("_px1_"+ syst + "_" + prompt, 1, 1); h_bin1->Divide(h_mc->ProjectionX("_px1_mc_" + syst + "_" + prompt, 1, 1));
+	TH1D* h_bin2 = h_data->ProjectionX("_px2_"+ syst + "_" + prompt, 2, 2); h_bin2->Divide(h_mc->ProjectionX("_px2_mc_" + syst + "_" + prompt, 2, 2));
+	TH1D* h_bin3 = h_data->ProjectionX("_px3_"+ syst + "_" + prompt, 3, 3); h_bin3->Divide(h_mc->ProjectionX("_px3_mc_" + syst + "_" + prompt, 3, 3));
 
-	TH1D* h = (TH1D*)h_data_pt->Clone("");
-	h->Divide(h_mc_pt);
-	return h;
+
+	vector<TH1D*> temp;
+	temp.push_back(h_total); temp.push_back(h_bin1); temp.push_back(h_bin2); temp.push_back(h_bin3);
+	
+	return temp;
 }
 
-TH1D* FakeValidation::GetPromptNormEta(TString id, TString syst, TString prompt) {
-    TString data = "DoubleEG";
-    TString mc = "MC";
+TH2D* FakeValidation::GetPromptCompPtEta(TString id, TString syst, TString prompt) {
+	cout << "[FakeValidation::GetPromptCompPtEta] Basic information" << endl;
+	cout << "[FakeValidation::GetPromptCompPtEta] id = " << id << endl;
+	cout << "[FakeValidation::GetPromptCompPtEta] syst = " << syst << endl;
+	cout << "[FakeValidation::GetPromptCompPtEta] prompt = " << prompt << endl;
 
-    TH2D* h_data = (TH2D*) GetHist(data, "passID_WEnriched_" + id + "_" + syst + "_" + prompt);
-    TH2D* h_mc = (TH2D*) GetHist(mc, "passID_WEnriched_" + id + "_" + syst + "_" + prompt);
+	//==== recommended to put syst as "Central" to see the overall normalization variation ====
+	TH2D* h_syst = GetPromptNormPtEta(id, syst, prompt);
+	TH2D* h_central = GetPromptNormPtEta(id, syst, "Central");
+	h_syst->Add(h_central, -1);
+	h_syst->Divide(h_central);
 
-    TH1D* h_data_eta = h_data->ProjectionY("_py_data");
-    TH1D* h_mc_eta = h_mc->ProjectionY("_py_mc");
-
-    TH1D* h = (TH1D*)h_data_eta->Clone("");
-    h->Divide(h_mc_eta);
-    return h;
+	return h_syst;
 }
 
+vector<TH1D*> FakeValidation::GetPromptCompPt(TString id, TString syst, TString prompt) {
+	cout << "[FakeValidation::GetPromptCompPt] Basic information" << endl;
+    cout << "[FakeValidation::GetPromptCompPt] id = " << id << endl;
+    cout << "[FakeValidation::GetPromptCompPt] syst = " << syst << endl;
+    cout << "[FakeValidation::GetPromptCompPt] prompt = " << prompt << endl;	
 
+	//==== recommended to put syst as "Central" to see the overall normalization variation ====
+	vector<TH1D*> h_syst = GetPromptNormPt(id, syst, prompt);
+	vector<TH1D*> h_central = GetPromptNormPt(id, syst, "Central");
 
+	for (unsigned int i =0; i < h_syst.size(); i++) {
+		h_syst.at(i)->Add(h_central.at(i), -1);
+		h_syst.at(i)->Divide(h_central.at(i));
+	}
 
-
+	return h_syst;
+}
 
 
 

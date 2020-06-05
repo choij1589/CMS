@@ -21,6 +21,7 @@ public:
 
     //==== Member Functions ====
 	TH1* GetHist(TString sample, TString histname);
+	double GetPromptScale(TString id, TString syst, TString prompt);
     TH2D* GetFakeRatePtEta(TString idset, TString syst, TString prompt, double promptScale);
 	vector<TH1D*> GetFakeRatePt(TString idset, TString syst, TString prompt, double promptScale);
 
@@ -33,7 +34,8 @@ public:
 	TH2D* GetPromptCompPtEta(TString id, TString syst, TString prompt);
 	vector<TH1D*> GetPromptCompPt(TString id, TString syst, TString prompt);
 
-	TH2D* GetFakeRateWithError(TString idset); //need update
+	TH2D* GetFakeRateWithErr(TString idset); //need update
+	vector<TH1D*> GetFakeCompPtWithErr(TString idset);
 };
 
 #endif

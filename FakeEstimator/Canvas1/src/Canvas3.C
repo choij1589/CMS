@@ -29,8 +29,14 @@ void Canvas3() {
 
 	//auto* h = fake.GetFakeCompPtEta("POG", Systs.at(2), "Central", 1);
 	//vector<TH1D*> h = fake.GetFakeCompPt("POG", Systs.at(4), "Central", 1);
-	vector<TH1D*> h = fake.GetPromptCompPt("passTightID", "Central", Prompts.at(9));
-	cvs->cd();
-	h.at(0)->Draw();
-	cvs->Draw();
+	//vector<TH1D*> h = fake.GetPromptCompPt("passTightID", "Central", Prompts.at(9));
+	//vector<TH1D*> h = fake.GetFakeCompPt("POG", "Central", "Central", 1.15);
+	//vector<TH1D*> h = fake.GetFakeCompPt("Fake", "Central", "Central", 0.85);
+	vector<TH1D*> h = fake.GetFakeCompPtWithErr("Fake");
+	//h.at(0)->GetYaxis()->SetRangeUser(-1, 1);
+	//h.at(0)->Draw();
+	//cvs->cd();
+	//h.at(0)->SetStats(0);
+	//h.at(0)->Draw();
+	//cvs->Draw();
 }

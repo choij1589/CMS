@@ -3,10 +3,10 @@
 #include "FakeValidation.h"
 #include "FakeValidation.C"
 
-void test() {
+void MakeFakeRootFile() {
     //==== Basic Information ====
-    TString pathData = "$PWD/../../Outputs/2016/RunSysts__/DATA/";
-    TString pathMC = "$PWD/../../Outputs/2016/RunSysts__/Samples/";
+    TString pathData = "$PWD/../../Outputs/2016/RunSysts__OringTrigger/DATA/";
+    TString pathMC = "$PWD/../../Outputs/2016/RunSysts__OringTrigger/Samples/";
 
     vector<TString> Samples = {"DoubleEG", "MC", "DYJets", "tt", "WJets_MG", "SingleTop", "tW"};
     vector<TString> IDs = {"passLooseID", "passTightID", "FakeLooseID", "FakeTightID"};
@@ -21,8 +21,19 @@ void test() {
     FakeValidation fake;
     fake.Init(pathData, pathMC, Samples, IDs, Systs, Prompts, Regions, IDSets);
 
-	TH2D* h1 = (TH2D*)fake.GetHist("DoubleEG", "passID3bins_QCDEnriched_passLooseID_Central_Central");
-	TH2D* h2 = (TH2D*)fake.GetHist("DoubleEG", "passID3bins_QCDEnriched_FakeLooseID_Central_Central");
+	TH2D* h_POG = fake.GetFakeRateWithErr("POG");
+	TH2D* h_Fake = fake.GetFakeRateWithErr("Fake");
+	h_POG->SetName("Electron_fake_rate_POG");
+	h_Fake->SetName("Electron_fake_rate_FAKE");
 
-	h1->Draw("colz");
+	h_POG->GetZaxis()->SetRangeUser(0, 0.5);
+	h_POG->Draw("e1");
+	//
+	//==== create root file to store the fake rate
+	TFile* f = new TFile("Electron_fake_rate.root", "recreate");
+	f->cd();
+	h_POG->Write();
+	h_Fake->Write();
+	f->Write();
+	f->Close();
 }

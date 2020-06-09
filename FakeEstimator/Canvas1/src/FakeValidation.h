@@ -35,6 +35,9 @@ public:
 	vector<TH1D*> GetPromptCompPt(TString id, TString syst, TString prompt);
 
 	TH2D* GetFakeRateWithErr(TString idset); //need update
+	vector<TH1D*> GetFakeRatePtWithErr(TString idset);
+
+	TH2D* GetFakeCompWithErr(TString idset); //need update
 	vector<TH1D*> GetFakeCompPtWithErr(TString idset);
 };
 

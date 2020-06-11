@@ -341,12 +341,16 @@ TH2D* FakeValidation::GetFakeRateWithErr(TString idset) const {
 	for (int i = 0; i < nbinx; i++) {
 		for (int j = 0; j < nbiny; j++) {
 			double totalerr = 0;
-			double stat = h->GetBinError(i+1, j+1); totalerr += stat*stat;
+			double stat = h->GetBinError(i+1, j+1);
+			stat /= h->GetBinContent(i+1, j+1);
+			totalerr += stat*stat;
 			for (unsigned int k = 0; k < h_systs.size(); k++) {
 				double syst = h_systs.at(k)->GetBinContent(i+1, j+1) - h->GetBinContent(i+1, j+1);
+				syst /= h->GetBinContent(i+1, j+1);
 				totalerr += syst*syst;
 			}
 			totalerr = TMath::Sqrt(totalerr);
+			totalerr *= h->GetBinContent(i+1, j+1);
 			h->SetBinError(i+1, j+1, totalerr);
 		}
 	}
@@ -371,12 +375,16 @@ vector<TH1D*> FakeValidation::GetFakeRatePtWithErr(TString idset) const {
 		// for every bin;
 		for (int j = 0; j < nbin; j++) {
 			double totalerr = 0;
-			double stat = h.at(i)->GetBinError(j+1); totalerr += stat*stat;
+			double stat = h.at(i)->GetBinError(j+1);
+			stat /= h.at(i)->GetBinContent(j+1);
+			totalerr += stat*stat;
 			for (unsigned int k = 0; k < h_systs.size(); k++) {
 				double syst = h_systs.at(k).at(i)->GetBinContent(j+1) - h.at(i)->GetBinContent(j+1);
+				syst /= h.at(i)->GetBinContent(j+1);
 				totalerr += syst*syst;
 			}
 			totalerr = TMath::Sqrt(totalerr);
+			totalerr *= h.at(i)->GetBinContent(j+1);
 			h.at(i)->SetBinError(j+1, totalerr);
 		}
 	}

@@ -30,8 +30,8 @@ void Canvas3() {
 	TPad* pad_up = new TPad("pad_up", "", 0, 0.3, 1, 1);
 	TPad* pad_down = new TPad("pad_down", "", 0, 0, 1, 0.3);
 
-	TString idset = "POG";
-	int n = 3;
+	TString idset = "Fake";
+	int n = 0;
 	int nbinx = 4;
 
 	// histograms in pad_up

@@ -77,31 +77,6 @@ vector<TString> FileNavi::GetRegions() const {
 }
 
 //==== Other Functions ====
-void FileNavi::LoadFakeDirectory() {
-	vector<TFile*> TFiles; // 0 for data, 1 for mc, 2~ for subsamples
-    TFile* f_data = new TFile(pathData + "FakeEstimator_DoubleEG.root");
-	TFiles.push_back(f_data);
-
-	//==== Samples contain the information of the data also
-	for (unsigned int i = 1; i < Samples.size(); i++) {
-		TFile* f_mc = new TFile(pathMC + "FakeEstimator_" + Samples.at(i) + ".root");
-		TFiles.push_back(f_mc);
-	}
-
-	//==== map
-	for (unsigned int i = 0; i < Samples.size(); i++) { TString sample = Samples.at(i);
-	for (unsigned int j = 0; j < IDs.size(); j++) { TString id = IDs.at(j);
-	for (unsigned int k = 0; k < Systs.size(); k++) { TString syst = Systs.at(k);
-	for (unsigned int l = 0; l < Prompts.size(); l++) { TString prompt = Prompts.at(l);
-	for (unsigned int m = 0; m < Regions.size(); m++) { TString region = Regions.at(m);
-		TFile* f = TFiles.at(i);
-		auto* dirID = (TDirectory*)f->Get(id);
-		auto* dirSyst = (TDirectory*)dirID->Get(syst);
-		auto* dirPrompt = (TDirectory*)dirSyst->Get(prompt);
-		auto* dirRegion = (TDirectory*)dirPrompt->Get(region);
-		MapFakeDirectory[sample][id][syst][prompt][region] = dirRegion;
-	}}}}}
-}
 TDirectory* FileNavi::GetFakeDirectory(
 	TString sample, TString id, TString syst, TString prompt, TString region) const {
 	TFile* f = NULL;

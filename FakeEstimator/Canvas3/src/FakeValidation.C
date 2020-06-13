@@ -16,8 +16,6 @@ void FakeValidation::Init(
     navi.SetPrompts(prompts);
     navi.SetRegions(regions);
 
-    navi.LoadFakeDirectory();
-
 	IDSets = idsets;
 }
 

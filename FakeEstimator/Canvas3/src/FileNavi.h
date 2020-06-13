@@ -14,15 +14,6 @@ private:
     vector<TString> Prompts;
     vector<TString> Regions;
 
-    //==== map for tree structure
-    //==== MapFakeDirectory[sample][id][syst][prompt][region]
-    map<TString,
-        map<TString,
-            map<TString,
-                map<TString,
-                    map<TString, TDirectory*>>>>> MapFakeDirectory;
-
-
 public:
     //==== you can make different constructor for each analysis
     //==== constructor and destructor for the fake rate measurement
@@ -55,7 +46,6 @@ public:
     vector<TString> GetRegions() const;
 
     //==== Other Functions ====
-    void LoadFakeDirectory();
     TDirectory* GetFakeDirectory(TString sample, TString id, TString syst, TString prompt, TString region) const;
 };
 

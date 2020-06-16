@@ -389,4 +389,32 @@ vector<TH1D*> FakeValidation::GetFakeRatePtWithErr(TString idset) const {
 	return h;
 }
 
+TH2D* FakeValidation::GetPromptRate(TString idset, bool IsData) {
+	TString idLoose, idTight;
+	TString sample;
+	if (idset.Contains("POG")) {
+		idLoose = "passLooseID";
+		idTight = "passTightID";
+	}
+	else if (idset.Contains("Fake")) {
+		idLoose = "FakeLooseID";
+		idTight = "FakeTightID";
+	}
+	else {
+		cout << "[FakeValidation::GetPromptRate] No ids for " << idset << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	if (IsData) sample = "DoubleEG";
+	else sample = "MC";
+
+	TH2D* hLoose 
+		= (TH2D*)GetHist(sample, "passID_WEnriched_" + idLoose + "_" + "Central" + "_" + "Central");
+	TH2D* hTight
+		= (TH2D*)GetHist(sample, "passID_WEnriched_" + idTight + "_" + "Central" + "_" + "Central");
+	TH2D* hPrompt = (TH2D*)hTight->Clone("prompt_rate_" + sample + "_" + idset);
+	hPrompt->Divide(hLoose);
+
+	return hPrompt;
+}
 

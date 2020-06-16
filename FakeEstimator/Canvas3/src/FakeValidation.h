@@ -39,6 +39,8 @@ public:
 
 	TH2D* GetFakeCompWithErr(TString idset) const; //need update
 	vector<TH1D*> GetFakeCompPtWithErr(TString idset) const; //need update
+
+	TH2D* GetPromptRate(TString idset, bool IsDATA);
 };
 
 #endif

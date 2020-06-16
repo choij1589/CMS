@@ -45,7 +45,7 @@ void Canvas4() {
 	TString syst = Systs.at(0);
 	TString prompt = Prompts.at(0);
 
-	TString histname = Hists_W.at(7);
+	TString histname = Hists_W.at(0);
 	histname += region + "_" + id + "_" + syst + "_" + prompt;
 
 	//== Preparation ==

@@ -29,8 +29,8 @@ void Canvas1() {
 	//TString histname = "MET_";
 	//TString histname = "Njets_";
 	
-	//TStri idset = "FakeID";
-	TString idset = "POGID";
+	TString idset = "FakeID";
+	//TString idset = "POGID";
 	
 	//==== prepare histograms to stack ====
 	THStack* hs = new THStack("hs", "");
@@ -44,6 +44,7 @@ void Canvas1() {
 			cout << "no " << this_histname << endl;
 			exit(EXIT_FAILURE);
 		}
+		//if(i != 0) this_hist->Scale(0.8);
 		hSamples.push_back(this_hist);
 	}
 	TDirectory* dFake = navi.GetDirectory(Samples.at(0), idset, 1, 0);

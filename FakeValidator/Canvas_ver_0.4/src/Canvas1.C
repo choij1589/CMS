@@ -29,7 +29,7 @@ void Canvas1() {
 	//TString histname = "MET_";
 	//TString histname = "Njets_";
 	
-	//TString idset = "FakeID";
+	//TStri idset = "FakeID";
 	TString idset = "POGID";
 	
 	//==== prepare histograms to stack ====

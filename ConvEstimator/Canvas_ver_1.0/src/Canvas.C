@@ -31,6 +31,10 @@ void Canvas() {
 	int yAxisScale, compScale;
 
 	cout << "[Canvas] User defined settings" << endl;
+	cout << "[Canvas] histnames: " << endl;
+	for (unsigned int i = 0; i < histnames.size(); i++) {
+		cout << "[Canvas] histname " << i << ": " << histnames.at(i) << endl;
+	}
 	cout << "[Canvas] histnum = ";
 	cin >> histnum;
 	if (histnum >= histnames.size()) {
@@ -49,7 +53,6 @@ void Canvas() {
 
 	cout << "[Canvas] idset = " << idset << endl;
 	cout << "[Canvas] trigScale = " << trigScale << endl;
-	cout << "[Canvas] trigHist = " << trigHist << endl;
 	cout << "[Canvas] histname = " << histnames.at(histnum) << endl;
 	cout << "[Canvas] sys = " << sys << endl;
 	cout << "[Canvas] xAxisName = " << xAxisName << endl;

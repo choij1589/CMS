@@ -3,12 +3,12 @@
 
 void Canvas1() {
 	//==== Basic information ====
+	///home/choij/Documents/CMS/FakeValidator/Output_ver_1.0/2016/RunFakeSyst__RunPrompt__/DATA
 	TString pathData = "$PWD/../../Output_ver_1.0/2016/RunFakeSyst__RunPrompt__/DATA/";
 	TString pathMC = "$PWD/../../Output_ver_1.0/2016/RunFakeSyst__RunPrompt__/Samples/";
 
-	vector<TString> Samples = {"DoubleEG", "MC", "ttVorH", "VV", "rare"};
-
-	//vector<TString> Samples = {"DoubleEG", "MC", "ttVorH", "VV", "rare", "conv"};
+	//vector<TString> Samples = {"DoubleEG", "MC", "ttVorH", "VV", "rare"};
+	vector<TString> Samples = {"DoubleEG", "MC", "ttVorH", "VV", "rare", "conv"};
 	vector<TString> IDSets = {"POGID", "FakeID"};
 
 	FileNavi navi;
@@ -30,8 +30,8 @@ void Canvas1() {
 	//TString histname = "MET_";
 	//TString histname = "Njets_";
 	
-	//TString idset = "FakeID";
-	TString idset = "POGID";
+	TString idset = "FakeID";
+	//TString idset = "POGID";
 	
 	//==== prepare histograms to stack ====
 	THStack* hs = new THStack("hs", "");
@@ -45,20 +45,16 @@ void Canvas1() {
 			cout << "no " << this_histname << endl;
 			exit(EXIT_FAILURE);
 		}
+		//if(i != 0) this_hist->Scale(0.8);
 		hSamples.push_back(this_hist);
 	}
 	TDirectory* dFake = navi.GetDirectory(Samples.at(0), idset, 1, 0);
-	dFake->ls();
 	TDirectory* dFakeUp = navi.GetDirectory(Samples.at(0), idset, 1, 1);
 	TDirectory* dFakeDown = navi.GetDirectory(Samples.at(0), idset, 1, -1);
 
-	TH1D* hFake = (TH1D*)dFake->Get(histname + idset + "_Central_WithPrompt_FakeContribution");
-	TH1D* hFakeUp = (TH1D*)dFakeUp->Get(histname + idset + "_SystUp_WithPrompt_FakeContribution");
-	TH1D* hFakeDown = (TH1D*)dFakeDown->Get(histname + idset + "_SystDown_WithPrompt_FakeContribution");
-	hFake->GetYaxis()->SetRangeUser(0, 1400);
-	hFake->Draw();
-	cout << dFake->GetName() << endl;
-	cout << hFake->GetName() << endl;
+	TH1D* hFake = (TH1D*)dFake->Get(histname + idset + "_Central_FakeContribution");
+	TH1D* hFakeUp = (TH1D*)dFakeUp->Get(histname + idset + "_SystUp_FakeContribution");
+	TH1D* hFakeDown = (TH1D*)dFakeDown->Get(histname + idset + "_SystDown_FakeContribution");
 	//==== set errors for hFake ====
 	int nbin = 0;
 	if (histname.Contains("pt") && histname.Contains("1st")) nbin = hFake->FindBin(199);
@@ -102,7 +98,7 @@ void Canvas1() {
 	hComp->Divide(hSyst);
 	hSyst->SetFillColorAlpha(kBlack, 0.5);
 	hSyst->SetFillStyle(3354);
-	hSyst->GetYaxis()->SetRangeUser(0, 1300);
+	hSyst->GetYaxis()->SetRangeUser(0, 800);
 	hSyst->Draw("e2");
 	hSamples.at(0)->Draw("hist same&e&p");
 	hs->Draw("hist f&same");

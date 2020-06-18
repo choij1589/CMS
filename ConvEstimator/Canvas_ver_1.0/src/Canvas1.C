@@ -7,8 +7,8 @@
 
 void Canvas1() {
 	//==== Basic information ====
-	TString pathData = "$PWD/../../Output_ver_0.3/2016/RunFakeSyst__/DATA/";
-	TString pathMC = "$PWD/../../Output_ver_0.3/2016/RunFakeSyst__/Samples/";
+	TString pathData = "$PWD/../../Output_ver_1.0/2016/RunFakeSyst__/DATA/";
+	TString pathMC = "$PWD/../../Output_ver_1.0/2016/RunFakeSyst__/Samples/";
 
 	vector<TString> Samples = {"DoubleEG", "MC", "conv", "VV", "rare", "ttVorH"};
 	vector<TString> IDSets = {"POGID", "FakeID"};

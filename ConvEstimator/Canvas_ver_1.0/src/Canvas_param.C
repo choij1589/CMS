@@ -35,7 +35,6 @@ void Canvas_param(unsigned int histnum, TString xAxisName, TString yAxisName, in
 		cout << "[Canvas] histnum should be smaller than " << histnames.size() << endl;
 		exit(EXIT_FAILURE);
 	}
-	cout << "[Canvas] histname = " << histnames.at(histnum) << endl;
 	cout << "[Canvas] idset = " << idset << endl;
 	cout << "[Canvas] trigScale = " << trigScale << endl;
 	cout << "[Canvas] histname = " << histnames.at(histnum) << endl;
@@ -110,7 +109,7 @@ void Canvas_param(unsigned int histnum, TString xAxisName, TString yAxisName, in
 			l->AddEntry(this_hist, "conv", "f");
 		}
 		if (Samples.at(j).Contains("VV")) {
-			this_hist->SetFillColorAlpha(kAzure, 0.5);
+			this_hist->SetFillColorAlpha(kAzure, 0.7);
 			l->AddEntry(this_hist, "VV", "f");
 		}
 		if (Samples.at(j).Contains("rare")) {
@@ -180,5 +179,5 @@ void Canvas_param(unsigned int histnum, TString xAxisName, TString yAxisName, in
 	c->cd();
 	pUp->Draw();
 	pDown->Draw();
-	c->SaveAs(histnames.at(histnum) + "Central.pdf");
+	c->SaveAs(histnames.at(histnum) + idset + "_Central.pdf");
 }

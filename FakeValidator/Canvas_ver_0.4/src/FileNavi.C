@@ -66,11 +66,15 @@ TDirectory* FileNavi::GetDirectory(TString sample, TString direcName) const {
 
 TDirectory* FileNavi::GetDirectory(TString sample, TString idset, bool isFake, int sys) {
 	TString this_dirName = idset + "_";
-	if (!isFake) this_dirName += "Central";
+	if (!isFake && sys==0) this_dirName += "Central";
+	else if (!isFake && !sys==0) {
+		cout << "[FileNavi::GetDirectory] sys for !isFake should be 0" << endl;
+		exit(EXIT_FAILURE);
+	}
 	else {
-		if (sys == 0) this_dirName +="Central_FakeContribution";
-		else if (sys == +1) this_dirName += "SystUp_FakeContribution";
-		else if (sys == -1) this_dirName += "SystDown_FakeContribution";
+		if (sys == 0) this_dirName += "Fake_Central";
+		else if (sys == +1) this_dirName += "Fake_SystUp";
+		else if (sys == -1) this_dirName += "Fake_SystDown";
 		else {
 			cout << "[FileNavi::GetDirectory] sys should be 0, +1, -1" << endl;
 			exit(EXIT_FAILURE);

@@ -36,7 +36,7 @@ public:
 
 	// public functions
 	TDirectory* GetDirectory(TString sample, TString direcName) const;
-	TDirectory* GetDirectory(TString sample, TString idset, bool isFake, int sys);
+	TDirectory* GetDirectory(TString sample, TString idset, bool isFake, int sys) const;
 
 };
 

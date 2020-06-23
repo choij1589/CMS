@@ -61,6 +61,16 @@ TH1* FakeValidation::GetHist(TString sample, TString histname) const {
 
 	//==== get histogram ====
 	TH1* hist = (TH1*)dir->Get(histname);
+	if (!hist) {
+		cout << "[FakeValidation::GetHist] null histogram" << endl;
+		cout << "[FakeValidation::GetHist] sample = " << sample << endl;
+		cout << "[FakeValidation::GetHist] id = " << id << endl;
+		cout << "[FakeValidation::GetHist] syst = " << syst << endl;
+		cout << "[FakeValidation::GetHist] prompt = " << prompt << endl;
+		cout << "[FakeValidation::GetHist] region = " << region << endl;
+		cout << "[FakeValidation::GetHist] histname = " << histname << endl;
+		exit(EXIT_FAILURE);
+	}
 	return hist;
 }
 

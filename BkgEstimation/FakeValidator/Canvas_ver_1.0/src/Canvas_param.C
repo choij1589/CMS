@@ -18,10 +18,10 @@ void Canvas_param(unsigned int histnum, TString xAxisName, TString yAxisName, in
 		= {"1st_electron_pt_", "1st_electron_eta_", "1st_electron_phi_",
 			"2nd_electron_pt_", "2nd_electron_eta_", "2nd_electron_phi_",
 			"3rd_electron_pt_", "3rd_electron_eta_", "3rd_electron_phi_",
-			"MET_", "NJets_"};
+			"MET_", "NJets_", "M(ee)_"};
 
 	//==== User defined setting ====
-	TString idset = "POGID";
+	TString idset = "FakeID";
 	bool trigScale = true;
 
 	cout << "[Canvas] User defined settings" << endl;
@@ -134,8 +134,9 @@ void Canvas_param(unsigned int histnum, TString xAxisName, TString yAxisName, in
 	else if (histnum == 8) nbin = hFake->FindBin(3.1);
 	else if (histnum == 9) nbin = hFake->FindBin(159);
 	else if (histnum == 10) nbin = hFake->FindBin(6);
+	else if (histnum == 11) nbin = hFake->FindBin(109);
 	else {
-		cout << "[Canvas] No histogram for histnae = " << histname << endl;
+		cout << "[Canvas] No histogram for histname = " << histname << endl;
 		exit(EXIT_FAILURE);
 	}
 	// set error bin by bin

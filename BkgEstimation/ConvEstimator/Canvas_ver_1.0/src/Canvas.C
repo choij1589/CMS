@@ -23,7 +23,7 @@ void Canvas() {
 
 
 	//==== User defined setting ====
-	TString idset = "POGID";
+	TString idset = "FakeID";
 	bool trigScale = true;
 	int sys = 0; // no effect on scale
 	unsigned int histnum;

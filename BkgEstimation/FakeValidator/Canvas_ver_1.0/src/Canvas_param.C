@@ -21,8 +21,8 @@ void Canvas_param(unsigned int histnum, TString xAxisName, TString yAxisName, in
 			"MET_", "NJets_", "M(ee)_"};
 
 	//==== User defined setting ====
-	TString idset = "FakeID";
-	bool trigScale = true;
+	TString idset = "POGID";
+	bool trigScale = false;
 
 	cout << "[Canvas] User defined settings" << endl;
     if (histnum >= histnames.size()) {
@@ -202,6 +202,6 @@ void Canvas_param(unsigned int histnum, TString xAxisName, TString yAxisName, in
     c->cd();
     pUp->Draw();
     pDown->Draw();
-    c->SaveAs(histname + idset + ".pdf");
+    c->SaveAs(histname + idset + "_scaleOff.pdf");
 
 }

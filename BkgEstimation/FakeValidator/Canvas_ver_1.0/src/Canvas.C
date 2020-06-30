@@ -18,11 +18,11 @@ void Canvas() {
 		= {"1st_electron_pt_", "1st_electron_eta_", "1st_electron_phi_",
 			"2nd_electron_pt_", "2nd_electron_eta_", "2nd_electron_phi_",
 			"3rd_electron_pt_", "3rd_electron_eta_", "3rd_electron_phi_",
-			"MET_", "Njets_"};
+			"MET_", "Njets_", "M(ee)_"};
 
 	//==== User defined setting ====
 	TString idset = "POGID";
-	bool trigScale = true;
+	bool trigScale = false;
 	unsigned int histnum;
 	TString xAxisName, yAxisName;
 	int yAxisScaleUp, yAxisScaleDown;
@@ -221,5 +221,6 @@ void Canvas() {
     pUp->Draw();
     pDown->Draw();
     c->Draw();
+	c->SaveAs(histname + idset + "_scaleOFF.pdf");
 
 }

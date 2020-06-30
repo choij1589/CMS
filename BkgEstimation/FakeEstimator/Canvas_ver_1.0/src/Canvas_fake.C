@@ -21,7 +21,7 @@ void Canvas_fake() {
     fake.Init(pathData, pathMC, Samples, IDs, Systs, Prompts, Regions, IDSets);
 
 	//==== User defined settings ====
-	TString idset = "Fake";
+	TString idset = "POG";
 	int etaRng = 3; // 0, 1, 2, 3
 	int nbinx = 6;
 
@@ -165,10 +165,10 @@ void Canvas_fake() {
 	pDown->Draw();
 	c->Draw();
 
-	if (etaRng == 0) c->SaveAs("fakerate_total.pdf");
-	else if (etaRng == 1) c->SaveAs("FR_barrel.pdf");
-	else if (etaRng == 2) c->SaveAs("FR_endcap1.pdf");
-	else if (etaRng == 3) c->SaveAs("FR_endcap2.pdf");
+	if (etaRng == 0) c->SaveAs("fakerate_total_" + idset + ".pdf");
+	else if (etaRng == 1) c->SaveAs("FR_barrel_" + idset + ".pdf");
+	else if (etaRng == 2) c->SaveAs("FR_endcap1_" + idset + ".pdf");
+	else if (etaRng == 3) c->SaveAs("FR_endcap2_" + idset + ".pdf");
 	else {
 		cout << "[Cavavs_fake] Wrong eta range" << endl;
 	}

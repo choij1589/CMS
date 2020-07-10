@@ -13,7 +13,7 @@ private:
 public:
 	//==== Construction ====
 	FileNavi();
-	FileNavi(const TString &p_data, const TString &p_MC, const vector<TString> samples, const vector<TString> muonIDs);
+	FileNavi(const TString &p_data, const TString &p_MC, const vector<TString> samples, const vector<TString> &muonIDs);
 	//==== Desturctor ====
 	~FileNavi();
 

@@ -8,7 +8,8 @@ void Canvas() {
 	vector<TString> Samples = {"SingleMuon", "DYJets", "TTLL_powheg"};
 	vector<TString> MuonIDs = {"POGLoose", "POGMedium", "POGTight"};
 
-	FileNavi navi(pathData, pathMC, Samples, MuonIDs);
+	IDVariables Var;
+	Var.Init(pathData, pathMC, Samples, MuonIDs);
 	
 	TString muonID = "POGTight";
 	TString region = "DY";

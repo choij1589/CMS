@@ -9,7 +9,7 @@ FileNavi::FileNavi() {
 	cout << "[FileNavi::FileNavi] Constructor called" << endl;
 }
 
-FileNavi::FileNavi(const TString &p_data, const TString &p_MC, const vector<TString> samples, const vector<TString> muonIDs)
+FileNavi::FileNavi(const TString &p_data, const TString &p_MC, const vector<TString> samples, const vector<TString> &muonIDs)
 	: pathData(p_data), pathMC(p_MC), Samples(samples), MuonIDs(muonIDs) {
 	cout << "[FileNavi::FileNavi] Constructor called" << endl;
 }

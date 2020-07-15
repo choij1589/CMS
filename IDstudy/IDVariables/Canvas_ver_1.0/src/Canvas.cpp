@@ -3,14 +3,14 @@
 #include "IDVariables.h"
 #include "IDVariables.cpp"
 
-void test() {
+void Canvas(const int &DataYear,const TString &path, const TString &xAxisName, const TString &yAxisName, const int &yAxisScale, const double &compScaleUp, const double &compScaleDown) {
 	//==== User setting information ====
-	int DataYear = 2016;
-	TString path = "POGTight_Central/TT/METv_xyCorr_phi";
-	TString yAxisName = "Events";
-	TString xAxisName = "p_{T}";
-	int yAxisScale = 4000;
-	double compScaleUp = 1.5, compScaleDown = 0.5;
+	//int DataYear = 2016;
+	//TString path = "POGTight_Central/TT/METv_xyCorr_phi";
+	//TString yAxisName = "Events";
+	//TString xAxisName = "p_{T}";
+	//int yAxisScale = 4000;
+	//double compScaleUp = 1.5, compScaleDown = 0.5;
 
 
 
@@ -27,6 +27,13 @@ void test() {
 	if (path.Contains("DY")) mc = Samples.at(1);
 	else if (path.Contains("TT")) mc = Samples.at(2);
 	else { cout << "Wrong path" << endl; exit(EXIT_FAILURE); }
+
+	//==== output path manipulation ====
+	TString outpath = "$PWD/";
+	TString tok;
+	Ssiz_t from = 0;
+	while(path.Tokenize(tok, from, "/")) outpath += tok + "_";
+	outpath += "prelim.png";
 
 
 	//==== Canvas and legend ====
@@ -121,7 +128,9 @@ void test() {
     c->cd();
     pUp->Draw();
     pDown->Draw();
-	c->Draw();
+	c->SaveAs(outpath);
+
+	c->Close();
 }
 
 	

@@ -1,4 +1,4 @@
-void test_SR4() {
+void test_SR1() {
 	using namespace RooFit;
 	TFile* f = new TFile("tripletM.root");
 
@@ -7,11 +7,11 @@ void test_SR4() {
 	bool trigTotal = true;
 
 	TString br;
-	if (trigSig) br = "gen_tripletM_sr4";
-	else br = "tripletM_sr4";
+	if (trigSig) br = "gen_tripletM_sr1";
+	else br = "tripletM_sr1";
 
 	TTree* tr = (TTree*)f->Get(br);
-	RooRealVar x(br, "x", 1000, 2500);
+	RooRealVar x(br, "x", 50, 600);
 
 	//==== import data
 	RooDataSet data("data", "data", RooArgSet(x), Import(*tr));
@@ -21,27 +21,32 @@ void test_SR4() {
 	//==== define variables
     //==== name of observable should be the same with the branch name
     //==== for signal, use double gaussian model
-	double m1 = 1498., m1err = 1.2;
-	double m2 = 1444., m2err = 6.5;
-	double s1 = 120.5, s1err = 1.25;
-	double s2 = 362.0, s2err = 3.098;
-    RooRealVar mean1("mean1", "mean1", m1, m1-2*m1err, m1+2*m2err);
+	double m1 = 209.1, m1err = 10.77;
+	double s1 = 19.9, s1err = 2.37;
+	double m2 = 195.0, m2err = 13.84;
+	double s2 = 55.9, s2err = 20.02;
+    RooRealVar mean1("mean1", "mean1", m1, m1-2*m1err, m1+2*m1err);
     RooRealVar mean2("mean2", "mean2", m2, m2-2*m2err, m2+2*m2err);
     RooRealVar sigma1("sigma1", "sigam1", s1, s1-2*s1err, s1+2*s1err);
     RooRealVar sigma2("sigma2", "sigma2", s2, s2-2*s2err, s2+2*s2err);
+	
+	//RooRealVar mean1("mean1", "mean1", 200, 195, 210);
+	//RooRealVar mean2("mean2", "mean2", 190, 180, 195);
+	//RooRealVar sigma1("sigma1", "sigma1", 0, 100);
+	//RooRealVar sigma2("sigma2", "sigma2", 0, 100);
 
 	RooGaussian sig1("sig1", "sig1", x, mean1, sigma1);
     RooGaussian sig2("sig2", "sig2", x, mean2, sigma2);
 
-	double s1_frac = 0.749, s1_frac_err = 0.00696;
-    RooRealVar sig1_frac("sig1_frac", "sig1_frac", s1_frac, s1_frac-2*s1_frac_err, s1_frac+2*s1_frac_err);
+    RooRealVar sig1_frac("sig1_frac", "sig1_frac", 0.5, 0., 1.);
     RooAddPdf sig("sig", "sig", RooArgList(sig1, sig2), sig1_frac);
 
 	//==== Backgournd function
-	RooRealVar a("a", "a", 10e24, 10e28);
-	RooRealVar b("b", "b", 14500, 16500);
-	RooRealVar c("c", "c", -400, 400);
-	RooRealVar d("d", "d", 2.0, 1.6, 2.2);
+	RooRealVar a("a", "a", 10e22, 10e28);
+	RooRealVar b("b", "b", 500, 700);
+	RooRealVar c("c", "c", -200, 200);
+	RooRealVar d("d", "d", 10e-2, 0., 1.0);
+	//RooRealVar d("d", "d", 0);
     RooGenericPdf bkg("bkg", "bkg", "(a / x^(5+d*TMath::Log((x+c)/13000)))*(1 / (TMath::Exp(b / (x+c))-1))", RooArgSet(x, a, b, c, d));
 
 	//==== sig+bkg model
@@ -70,7 +75,7 @@ void test_SR4() {
 	}
 
 	if (trigTotal) {
-		model.chi2FitTo(*dhist);
+		model.fitTo(*dhist);
 
 		RooPlot* total_frame = x.frame();
 		data.plotOn(total_frame);

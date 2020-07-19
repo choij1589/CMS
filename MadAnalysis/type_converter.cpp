@@ -1,13 +1,13 @@
 void type_converter() {
 	//==== Macro to convert the data type of TTree
-	//==== from vector to plain object
-	//==== since vector cannot be read for RooFit
+	//==== from vector 
+	//==== since vector cannot be read in RooFit framework
 	
 	//==== Load files to convert ====
-	TFile* f_sr1 = new TFile("test_SR1_go200.root");
-	TFile* f_sr2 = new TFile("test_SR2_go500.root");
-	TFile* f_sr3 = new TFile("test_SR3_go900.root");
-	TFile* f_sr4 = new TFile("test_SR4_go1600.root");
+	TFile* f_sr1 = new TFile("$PWD/BaseFiles/test_SR1_go200.root");
+	TFile* f_sr2 = new TFile("$PWD/BaseFiles/test_SR2_go500.root");
+	TFile* f_sr3 = new TFile("$PWD/BaseFiles/test_SR3_go900.root");
+	TFile* f_sr4 = new TFile("$PWD/BaseFiles/test_SR4_go1600.root");
 
 	TTree* t_sr1 = (TTree*)f_sr1->Get("SR_1");
 	TTree* t_sr2 = (TTree*)f_sr2->Get("SR_2");

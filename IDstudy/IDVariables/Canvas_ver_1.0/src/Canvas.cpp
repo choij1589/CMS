@@ -76,6 +76,7 @@ void Canvas(const int &DataYear,const TString &path, const TString &xAxisName, c
 	//==== hMC setting ====
 	hMC = (TH1D*)IDvar.GetHist(mc, path);
 	double scale = IDvar.GetScale(path);
+	cout << "[Canvas] scale = " << scale << endl;
 	hMC->Scale(scale);
 	if (path.Contains("DY")) {
 		hMC->SetFillColorAlpha(kYellow, 0.4);

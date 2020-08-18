@@ -2,9 +2,9 @@ void test_SR3() {
 	using namespace RooFit;
 	TFile* f = new TFile("tripletM.root");
 
-	bool trigSig = true;
+	bool trigSig = false;
 	bool trigBkg = false;
-	bool trigTotal = false;
+	bool trigTotal = true;
 
 	TString br;
 	if (trigSig) br = "gen_tripletM_sr3";

@@ -19,7 +19,7 @@ private:
 	// TObjects to decorate the canvas
 	void Clear();
 	void SetCanvas(const CanvasType& ctype);
-	void SetPad(const PadType& pyte);
+	void SetPad(const PadType& ptye);
 	void SetLegend(const LegendType& ltype);
 public:
 	// constructor

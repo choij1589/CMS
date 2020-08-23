@@ -2,10 +2,10 @@
 #include "FileNavi.cpp"
 
 void Macro() {
-	TString DataYear = "2016";
+	TString DataYear = "2018";
 	TString userflag = "RunPOGTight";
 	TString region = "preselection";
-	TString obj = "muons_tight/1";
+	TString obj = "METv";
 	TString dist = "pt";
 	bool logy = true;
 	
@@ -76,7 +76,7 @@ void Macro() {
 		h_others->Rebin(10);
 		h_fake->Rebin(10);
 	}
-	if (obj.Contains("fatjets")) {
+	if (obj.Contains("fatjets") && (dist.Contains("pt") || dist.Contains("SDMass"))) {
 		h_data->Rebin(5);
 		h_tX->Rebin(5);
 		h_VV->Rebin(5);
@@ -210,5 +210,6 @@ void Macro() {
 	lumi->Draw();
 	pUp->Draw();
 	pDown->Draw();
-	c->Draw();
+	c->SaveAs(DataYear + ".png");
+	//c->Draw();
 }

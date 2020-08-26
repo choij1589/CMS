@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/local/Cellar/root/6.22.00_1/include/root/**",
+                "/usr/local/Cellar/root/6.22.00_1/etc/root/**",
+                "/usr/local/Cellar/root/6.22.00_1/etc/root/cling/**",
+                "/usr/local/Cellar/root/6.22.00_1/include/root/**",
+                "/usr/local/Cellar/root/6.22.00_1/include/**"
+            ],
+            "defines": [],
+            "macFrameworkPath": [],
+            "compilerPath": "/usr/bin/clang++",
+            "cStandard": "gnu18",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

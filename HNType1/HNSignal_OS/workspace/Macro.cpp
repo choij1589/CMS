@@ -7,7 +7,7 @@ void Macro() {
 	TString region = "preselection";
 	TString obj = "muons_tight/1";
 	TString dist = "pt";
-	bool logy = true;
+	bool logy = false;
 	
 	TString pathData = "$PWD/../input/" + DataYear + "/" + userflag + "__/DATA/";
 	TString pathMC = "$PWD/../input/" + DataYear + "/" + userflag + "__/MCSamples/";

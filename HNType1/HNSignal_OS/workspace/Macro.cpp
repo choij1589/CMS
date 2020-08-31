@@ -5,9 +5,9 @@ void Macro() {
 	TString DataYear = "2016";
 	TString userflag = "RunPOGTight";
 	TString region = "preselection";
-	TString obj = "muons_tight/1";
+	TString obj = "METv";
 	TString dist = "pt";
-	bool logy = false;
+	bool logy = true;
 	
 	TString pathData = "$PWD/../input/" + DataYear + "/" + userflag + "__/DATA/";
 	TString pathMC = "$PWD/../input/" + DataYear + "/" + userflag + "__/MCSamples/";
@@ -81,27 +81,16 @@ void Macro() {
     h_others = (TH1D*) navi.GetHist("others", p_others);		
 	
 	// rebin
-	/*
-	if (dist.Contains("pt")) {
+	if (obj.Contains("fatjets") && (dist.Contains("pt") || dist.Contains("SDMass"))) {
 		h_data->Rebin(10);
 		h_DY->Rebin(10);
 		h_TT->Rebin(10);
-		h_tX->Rebin(10);
-		h_VV->Rebin(10);
-		h_others->Rebin(10);
-		h_fake->Rebin(10);
+        h_tX->Rebin(10);
+        h_VV->Rebin(10);
+        h_others->Rebin(10);
+        h_fake->Rebin(10);
+		yAxisName = "Events / 10 GeV";
 	}
-	if (obj.Contains("fatjets") && (dist.Contains("pt") || dist.Contains("SDMass"))) {
-		h_data->Rebin(5);
-		h_DY->Rebin(5);
-		h_TT->Rebin(5);
-		h_tX->Rebin(5);
-		h_VV->Rebin(5);
-		h_others->Rebin(5);
-		h_fake->Rebin(5);
-	}
-	*/
-
 	//==== set systematic for fake ====
 	cout << h_fake->GetNbinsX() << endl;
 	for (unsigned int i = 0; i < h_fake->GetNbinsX(); i++) {
@@ -237,6 +226,6 @@ void Macro() {
 	lumi->Draw();
 	pUp->Draw();
 	pDown->Draw();
-	//c->SaveAs(DataYear + ".png");
-	c->Draw();
+	c->SaveAs(DataYear + ".png");
+	//c->Draw();
 }

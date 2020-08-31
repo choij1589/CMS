@@ -4,8 +4,8 @@
 // entity class for PromptSelector
 class FileNavi {
 private:
-	TString pathData, pathMC;
-	vector<TString> Samples;
+	TString path_data_, path_mc_;
+	vector<TString> samples_;
 
 public:
 	// constructor
@@ -16,17 +16,17 @@ public:
 	~FileNavi();
 
 	// get and set
-	TString GetPathData() const;
-	TString GetPathMC() const;
-	vector<TString> GetSamples() const;
+	TString path_data() const;
+	TString path_mc() const;
+	vector<TString> samples() const;
 
-	void SetPathData(const TString& path);
-	void SetPathMC(const TString& path);
-	void SetSamples(const vector<TString>& samples);
+	void set_path_data(const TString& path);
+	void set_path_mc(const TString& path);
+	void set_samples(const vector<TString>& samples);
 
 	// navigation
-	TDirectory* GetDirectory(const TString& sample, const TString& path);
-	TH1* GetHist(const TString& sample, const TString& path);
+	TDirectory* getDirectory(const TString& sample, const TString& path);
+	TH1* getHist(const TString& sample, const TString& path);
 };
 
 #endif

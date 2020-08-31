@@ -5,7 +5,7 @@ void Macro() {
 	TString DataYear = "2018";
 	TString userflag = "RunPOGTight";
 	TString region = "preselection";
-	TString obj = "METv";
+	TString obj = "jets_awayFatJet/1";
 	TString dist = "pt";
 	bool logy = true;
 	
@@ -43,30 +43,30 @@ void Macro() {
 	// data
 	TString p_data = region + "/" + obj + "/" + dist;
 	cout << "p_data: " << p_data << endl;
-	h_data = (TH1D*)navi.GetHist("DoubleMuon", p_data);
+	h_data = (TH1D*)navi.getHist("DoubleMuon", p_data);
 	//h_data->Draw();
 
 	// fake
 	TString p_fake = region + "/fake/" + obj + "/" + dist;
 	cout << "p_fake: " << p_fake << endl;
-	h_fake = (TH1D*)navi.GetHist("DoubleMuon", p_fake);
+	h_fake = (TH1D*)navi.getHist("DoubleMuon", p_fake);
 	//h_fake->Draw();
 
 	// tX
 	TString p_tX = region + "/" + obj + "/" + dist;
 	cout << "p_tX: " << p_tX << endl;
-	h_tX = (TH1D*) navi.GetHist("tX", p_tX);
+	h_tX = (TH1D*) navi.getHist("tX", p_tX);
 	//h_tX->Draw();
 
 	// VV
 	TString p_VV = region + "/" + obj + "/" + dist;
 	cout << "p_VV:" << p_VV << endl;
-	h_VV = (TH1D*) navi.GetHist("VV", p_VV);
+	h_VV = (TH1D*) navi.getHist("VV", p_VV);
 
 	// others
 	TString p_others = region + "/" + obj + "/" + dist;
     cout << "p_others:" << p_others << endl;
-    h_others = (TH1D*) navi.GetHist("others", p_others);		
+    h_others = (TH1D*) navi.getHist("others", p_others);		
 	
 	// rebin
 	if (dist.Contains("pt")) {
@@ -106,9 +106,9 @@ void Macro() {
 	TPad* pDown = new TPad("pDown", "", 0, 0, 1, 0.25);
 
 	TString lumi_info;
-	if (DataYear.Contains("2016")) lumi_info = "L^{int} = 35.9 fb^{-1} (13TeV)";
-	else if (DataYear.Contains("2017")) lumi_info = "L^{int} = 41.5 fb^{-1} (13Tev)";
-	else if (DataYear.Contains("2018")) lumi_info = "L^{int} = 59.7 fb^{-1} (13TeV)";
+	if (DataYear.Contains("2016")) lumi_info = "L_{int} = 35.9 fb^{-1} (13TeV)";
+	else if (DataYear.Contains("2017")) lumi_info = "L_{int} = 41.5 fb^{-1} (13Tev)";
+	else if (DataYear.Contains("2018")) lumi_info = "L_{int} = 59.7 fb^{-1} (13TeV)";
 	else {
 		cerr << "Wrong DataYear" << endl;
 		exit(EXIT_FAILURE);
@@ -195,7 +195,7 @@ void Macro() {
 	// Draw on canvas
 	pUp->cd();
 	h_data->Draw("p&hist");
-	h_stack->Draw("hist&same");
+	h_stack->Draw("pfc&hist&same");
 	h_data->Draw("e1&same");
 	h_syst->Draw("e2&f&same");
 	if (logy) pUp->SetLogy();

@@ -4,26 +4,26 @@ using namespace std;
 // constructor
 FileNavi::FileNavi() {}
 FileNavi::FileNavi(const TString& path_data, const TString& path_mc, const vector<TString>& samples)
-	: pathData(path_data), pathMC(path_mc), Samples(samples) {}
+	: path_data_(path_data), path_mc_(path_mc), samples_(samples) {}
 
 // destructor
 FileNavi::~FileNavi() {}
 
 // get and set
-TString FileNavi::GetPathData() const { return pathData; }
-TString FileNavi::GetPathMC() const { return pathMC; }
-vector<TString> FileNavi::GetSamples() const { return Samples; }
+TString FileNavi::path_data() const { return path_data_; }
+TString FileNavi::path_mc() const { return path_mc_; }
+vector<TString> FileNavi::samples() const { return samples_; }
 
-void FileNavi::SetPathData(const TString &path) { pathData = path; }
-void FileNavi::SetPathMC(const TString &path) { pathMC = path; }
-void FileNavi::SetSamples(const vector<TString> &samples) { Samples = samples; }
+void FileNavi::set_path_data(const TString &path) { path_data_ = path; }
+void FileNavi::set_path_mc(const TString &path) { path_mc_ = path; }
+void FileNavi::set_samples(const vector<TString> &samples) { samples_ = samples; }
 
 // navigation
-TDirectory* FileNavi::GetDirectory(const TString& sample, const TString& path) {
+TDirectory* FileNavi::getDirectory(const TString& sample, const TString& path) {
 	
 	// get TFile
 	cout << "[FileNavi::GetDirectory] Current path for samples only supports for MC samples" << endl;
-	TString path_file = pathMC + "PromptSelector_" + sample + ".root";
+	TString path_file = path_mc() + "PromptSelector_" + sample + ".root";
 	TFile* f = new TFile(path_file);
 	TDirectory* out_dir = NULL;
 
@@ -50,13 +50,13 @@ TDirectory* FileNavi::GetDirectory(const TString& sample, const TString& path) {
 	return out_dir;
 }
 
-TH1* FileNavi::GetHist(const TString &sample, const TString &path) {
+TH1* FileNavi::getHist(const TString &sample, const TString &path) {
 
 	// get TFile
 	// cout << "[FileNavi::GetHist] Current path for samples only supports for MC samples" << endl;
     TString path_file;
-	if (sample.Contains("DoubleMuon")) path_file = pathData + "HNSignal_" + sample + ".root";
-	else path_file = pathMC + "HNSignal_" + sample + ".root";
+	if (sample.Contains("DoubleMuon")) path_file = path_data() + "HNSignal_" + sample + ".root";
+	else path_file = path_mc() + "HNSignal_" + sample + ".root";
     TFile* f = new TFile(path_file);
 	TDirectory* out_dir = NULL;
 	TH1* out_hist = NULL;

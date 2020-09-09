@@ -22,7 +22,7 @@ void Canvas() {
 
 	//==== User defined setting ====
 	TString idset = "POGID";
-	bool trigScale = false;
+	bool trigScale = true;
 	unsigned int histnum;
 	TString xAxisName, yAxisName;
 	int yAxisScaleUp, yAxisScaleDown;
@@ -154,7 +154,7 @@ void Canvas() {
 	else if (histnum == 9) nbin = hFake->FindBin(159);
 	else if (histnum == 10) nbin = hFake->FindBin(6);
 	else {
-		cout << "[Canvas] No histogram for histnae = " << histname << endl;
+		cout << "[Canvas] No histogram for histname = " << histname << endl;
 		exit(EXIT_FAILURE);
 	}
 	// set error bin by bin
